@@ -24,10 +24,29 @@
 -include device/samsung/jf-common/BoardConfigCommon.mk
 
 # inherit from the proprietary version
--include vendor/samsung/jfltexx/BoardConfigVendor.mk
+-include vendor/samsung/jfgedlte/BoardConfigVendor.mk
+
+# from stock, why not?
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3
+
+# match partition layout on our device
+TARGET_RECOVERY_FSTAB := device/samsung/jfgedlte/recovery.fstab
+
+# boot -> mmcblk0p21
+# recovery -> p22
+# system -> p16
+# userdata -> p28
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0xA00000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0xA00000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x46666000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x32C400000
+BOARD_FLASH_BLOCK_SIZE := 131072
+
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := jflte,jfltexx,i9505,GT-I9505
+TARGET_OTA_ASSERT_DEVICE := jflte,jfgedlte,i9505G,GT-I9505G
+
 
 # Kernel
-TARGET_KERNEL_CONFIG         := jf_eur_defconfig
+#TARGET_PREBUILT_KERNEL := device/samsung/jfgedlte/kernel
+TARGET_KERNEL_CONFIG         := jf_tmo_defconfig
